@@ -26,6 +26,8 @@ Library Object Interface:
 - void radiate_node_json(char *buff);
 - bool msg_is_avail(void);
 - void receive(char *buff, uint8_t max_len, bool clr_avail);
+- void receive_decode(char *buff, uint8_t max_len, bool clr_avail);
+- int16_t get_last_rssi(void);
 
 #define ENCRYPTKEY    RFM69_KEY   // defined in secret.h
 RH_RF69         rf69(RFM69_CS, RFM69_INT);

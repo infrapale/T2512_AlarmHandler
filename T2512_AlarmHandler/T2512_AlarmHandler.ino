@@ -38,6 +38,7 @@ Relay Mesage      <#R12=x>   x:  0=off, 1=on, T=toggle
 #include "atask.h"
 #include "Rfm69Modem.h"
 #include "io.h"
+#include "handler.h"
 
 //*********************************************************************************************
 #define SERIAL_BAUD   9600
@@ -100,6 +101,7 @@ void setup()
     atask_initialize();
     io_initialize();
     initialize_tasks();
+    handler_initialize();
     uint8_t key[] = RFM69_KEY;
     rfm69_modem.initialize(key);
     rfm69_modem.radiate(__APP__);
@@ -114,6 +116,7 @@ void setup()
 
 #define BUFF_LEN   80
 char mbuff[BUFF_LEN];
+int16_t rssi;
 void loop() 
 {
 
@@ -121,8 +124,13 @@ void loop()
     if(rfm69_modem.msg_is_avail())
     {
         // rfm69_modem.receive(mbuff, BUFF_LEN, false);
-        // rfm69_modem.receive_decode(mbuff, BUFF_LEN, true);
-        // Serial.println(mbuff);
+        rfm69_modem.receive_decode(mbuff, BUFF_LEN, true);
+        rssi = rfm69_modem.get_last_rssi();
+        // Serial.print(mbuff); Serial.print(" RSSI: "); Serial.println(rssi);
+        if (handler_parse_msg(mbuff,rssi))
+        {
+            handler_process_node();
+        }
         // delay(1000);
         //rfm69_modem.radiate_node_json((char*) "<R1X1J1:Dock;T_bmp1;9.1;->");
         //rfm69_modem.radiate("OK");
