@@ -140,30 +140,57 @@ void handler_node_state_machine(node_st *node)
     }
 }
 
+void handler_debug_print(void)
+{
+    Serial.println("Nodes: ");
+    for(uint8_t indx = 0; indx < NBR_OF_NODES; indx++)
+    {
+        Serial.printf("%s-%s=%s",node[indx].fields.zone, node[indx].fields.item,node[indx].fields.value);
+        if (node[indx].sm.alarm_timeout > millis()) Serial.println("=on ");   
+        else Serial.println("=off ");      
+    }
+}
+
 void handler_task(void)
 {
-    switch (h_handle.state)
-    {
-        case 0:
-            
-            h_handle.state = 10;
-            break;
-        case 10:
-            h_handle.state = 20;
-            break;
-        case 0:
-            h_handle.state = 10;
-            break;
-        case 0:
-            h_handle.state = 10;
-            break;
-    }
-
+    static boolean alarm_is_active;
+    uint8_t active_cntr = 0;
 
     for(uint8_t indx = 0; indx < NBR_OF_NODES; indx++)
     {
         handler_node_state_machine(&node[indx]);
-        if (node[indx].sm.alarm_timeout > millis()) alarm_is_active = true;        
+        if (node[indx].sm.alarm_timeout > millis()) active_cntr++;        
     }
+
+
+    switch (h_handle.state)
+    {
+        case 0:
+            h_handle.state = 10;
+            break;
+        case 10:
+            if (active_cntr > 0) 
+            {
+                h_handle.state = 20;
+                hctrl.timeout = millis() + 10000;
+                Serial.printf("Alarm On! active = %d\n", active_cntr );
+            }
+            break;
+        case 20:
+            if( millis() > hctrl.timeout)
+            {
+                h_handle.state = 30;
+                Serial.printf("Alarm Off! active = %d\n", active_cntr);
+                hctrl.timeout = millis() + 5000;
+            }
+            break;
+        case 30:
+            if( millis() > hctrl.timeout) {
+                h_handle.state = 10;
+            }
+            break;
+
+    }
+
     
 }

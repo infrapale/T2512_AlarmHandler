@@ -150,7 +150,8 @@ void run_100ms(void)
 
 void debug_print_task(void)
 {
-  //atask_print_status(true);
+  atask_print_status(true);
+  handler_debug_print();
 }
 
 #ifdef SEND_TEST_MSG

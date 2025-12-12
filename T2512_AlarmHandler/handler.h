@@ -52,4 +52,6 @@ bool handler_parse_msg(char *msg, int16_t rssi );
 
 void handler_process_node(void);
 
+void handler_debug_print(void);
+
 #endif
