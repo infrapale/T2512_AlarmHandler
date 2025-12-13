@@ -68,7 +68,7 @@ bool handler_parse_msg(char *msg, int16_t rssi )
         // handler_print_node(&hctrl.node);
     }    
     else {
-        Serial.printf("Message could not be parsed: %s", msg);
+        Serial.printf("Message could not be parsed: %s\n", msg);
     }
     return do_continue;
 }

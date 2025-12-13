@@ -123,8 +123,8 @@ void loop()
     atask_run();  
     if(rfm69_modem.msg_is_avail())
     {
-        // rfm69_modem.receive(mbuff, BUFF_LEN, false);
-        rfm69_modem.receive_decode(mbuff, BUFF_LEN, true);
+        // rfm69_modem.get_msg(mbuff, BUFF_LEN, false);
+        rfm69_modem.get_msg_decode(mbuff, BUFF_LEN, true);
         rssi = rfm69_modem.get_last_rssi();
         // Serial.print(mbuff); Serial.print(" RSSI: "); Serial.println(rssi);
         if (handler_parse_msg(mbuff,rssi))
