@@ -2,6 +2,8 @@
 #include "handler.h"
 #include "atask.h"
 
+
+
 node_st node[NBR_OF_NODES] =
 {
   {{"Piha","PIR1","xxxx"}, NODE_TYPE_PIR, 0},

@@ -39,12 +39,13 @@ Relay Mesage      <#R12=x>   x:  0=off, 1=on, T=toggle
 #include "Rfm69Modem.h"
 #include "io.h"
 #include "handler.h"
+#include "alarm.h"
 
 //*********************************************************************************************
 #define SERIAL_BAUD   9600
 #define ENCRYPTKEY    RFM69_KEY   // defined in secret.h
 RH_RF69         rf69(RFM69_CS, RFM69_INT);
-Rfm69Modem      rfm69_modem(&rf69, MY_MODULE_TAG, MY_MODULE_ADDR, RFM69_RST, PIN_LED_ONBOARD );
+Rfm69Modem      rfm69_modem(&rf69,  RFM69_RST, PIN_LED_ONBOARD );
 modem_data_st   modem_data = {MY_MODULE_TAG, MY_MODULE_ADDR};
 
 #define NBR_TEST_MSG  4
@@ -78,7 +79,7 @@ atask_st send_test_data_handle     = {"Send Test Task ", 10000,0, 0, 255, 0, 1, 
 
 void initialize_tasks(void)
 {
-  atask_add_new(&debug_print_handle);
+  //atask_add_new(&debug_print_handle);
   atask_add_new(&clock_handle);
   atask_add_new(&modem_handle);
   #ifdef SEND_TEST_MSG
@@ -102,8 +103,9 @@ void setup()
     io_initialize();
     initialize_tasks();
     handler_initialize();
+    alarm_initialize(&rfm69_modem);
     uint8_t key[] = RFM69_KEY;
-    rfm69_modem.initialize(key);
+    rfm69_modem.initialize(MY_MODULE_TAG, MY_MODULE_ADDR, key);
     rfm69_modem.radiate(__APP__);
     #ifdef ADAFRUIT_FEATHER_M0
     // Initialze WDT with a 2 sec. timeout

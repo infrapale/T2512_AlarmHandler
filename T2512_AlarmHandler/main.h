@@ -20,7 +20,7 @@
 #define TASK_NBR_OF  3
 #define LED_INDICATION
 
-#define MY_MODULE_TAG   'R'
+#define MY_MODULE_TAG   'A'
 #define MY_MODULE_ADDR  '1'
 
 typedef struct
