@@ -44,6 +44,7 @@ void alarm_send(uint8_t severity, char *rem )
         severity,
         rem);
     Serial.println(msg);
+    actrl.modem->radiate(msg);
 }
 
 bool alarm_test_state_machine(alarm_test_msg_st *atp)

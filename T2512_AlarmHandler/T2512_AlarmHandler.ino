@@ -133,8 +133,8 @@ void loop()
         {
             handler_process_node();
         }
-        // delay(1000);
-        //rfm69_modem.radiate_node_json((char*) "<R1X1J1:Dock;T_bmp1;9.1;->");
+        delay(3000);
+        rfm69_modem.radiate_node_json((char*) "<R1X1J1:Dock;T_bmp1;9.1;->");
         //rfm69_modem.radiate("OK");
     }
 }
