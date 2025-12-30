@@ -1,7 +1,7 @@
 #ifndef __MAIN_H__
 #define __MAIN_H__
 #include "WString.h"
-#define   __APP__ ((char*)"T2512_RFM69_Modem")
+#define   __APP__ ((char*)"T2512_AlarmHandler")
 
 #define DEBUG_PRINT 
 //#define SEND_TEST_MSG 

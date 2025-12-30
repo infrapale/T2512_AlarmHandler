@@ -2,7 +2,7 @@
 T2512_RFM69_Modem 
 *******************************************************************************
 
-HW: Adafruit M0 RFM69 Feather or Arduino Pro Mini + RFM69
+HW: Adafruit RP2040 Feather + RFM69
 
 Send and receive data via UART
 
@@ -83,7 +83,7 @@ void initialize_tasks(void)
   atask_add_new(&clock_handle);
   atask_add_new(&modem_handle);
   #ifdef SEND_TEST_MSG
-  atask_add_new(&send_test_data_handle);
+  // atask_add_new(&send_test_data_handle);
   #endif
 
 }
@@ -126,15 +126,15 @@ void loop()
     if(rfm69_modem.msg_is_avail())
     {
         // rfm69_modem.get_msg(mbuff, BUFF_LEN, false);
-        rfm69_modem.get_msg_decode(mbuff, BUFF_LEN, true);
+        rfm69_modem.get_msg(mbuff, BUFF_LEN, true);    //.get_msg_decode(mbuff, BUFF_LEN, true);
         rssi = rfm69_modem.get_last_rssi();
-        // Serial.print(mbuff); Serial.print(" RSSI: "); Serial.println(rssi);
+        Serial.print(mbuff); Serial.print(" RSSI: "); Serial.println(rssi);
         if (handler_parse_msg(mbuff,rssi))
         {
-            handler_process_node();
+            // handler_process_event();
         }
         delay(3000);
-        rfm69_modem.radiate_node_json((char*) "<R1X1J1:Dock;T_bmp1;9.1;->");
+        //rfm69_modem.radiate_node_json((char*) "<R1X1J1:Dock;T_bmp1;9.1;->");
         //rfm69_modem.radiate("OK");
     }
 }
@@ -159,11 +159,11 @@ void debug_print_task(void)
 #ifdef SEND_TEST_MSG
 void send_test_data_task(void)
 {
-    if  (send_test_data_handle.state >= NBR_TEST_MSG ) send_test_data_handle.state = 0;
+    // if  (send_test_data_handle.state >= NBR_TEST_MSG ) send_test_data_handle.state = 0;
 
-    uart_p->rx.str  = test_msg[send_test_data_handle.state];
-    uart_p->rx.avail = true;
-    send_test_data_handle.state++;
+    // uart_p->rx.str  = test_msg[send_test_data_handle.state];
+    // uart_p->rx.avail = true;
+    // send_test_data_handle.state++;
 }
 #endif
 

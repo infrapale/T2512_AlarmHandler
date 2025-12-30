@@ -32,7 +32,7 @@ alarm_test_msg_st test_alarm[4] =
 void alarm_initialize(Rfm69Modem  *rfm69_modem)
 {
     actrl.modem = rfm69_modem;
-    atask_add_new(&a_handle);
+    // atask_add_new(&a_handle);
 }
 // <ALARM;A1;3;Piha>
 void alarm_send(uint8_t severity, char *rem )
@@ -44,7 +44,7 @@ void alarm_send(uint8_t severity, char *rem )
         severity,
         rem);
     Serial.println(msg);
-    actrl.modem->radiate(msg);
+    //actrl.modem->radiate(msg);
 }
 
 bool alarm_test_state_machine(alarm_test_msg_st *atp)
