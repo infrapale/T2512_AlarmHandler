@@ -79,7 +79,7 @@ atask_st send_test_data_handle     = {"Send Test Task ", 10000,0, 0, 255, 0, 1, 
 
 void initialize_tasks(void)
 {
-  //atask_add_new(&debug_print_handle);
+  atask_add_new(&debug_print_handle);
   atask_add_new(&clock_handle);
   atask_add_new(&modem_handle);
   #ifdef SEND_TEST_MSG
@@ -154,6 +154,7 @@ void debug_print_task(void)
 {
   atask_print_status(true);
   handler_debug_print();
+  alarm_debug_print();
 }
 
 #ifdef SEND_TEST_MSG

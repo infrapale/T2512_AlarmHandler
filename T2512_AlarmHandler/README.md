@@ -69,6 +69,20 @@ UART Command Syntax
                    \______ module_tag target
 
 *******************************************************************************
+  Event Radio Messages:
+    <PIR;Piha2;0>   PIR Piha2 is inactive
+    <PIR;Ranta1;1>  PIR Ranta1 is active
+
+  Bell Radio Messages:
+    <BELL,VA1,BigBen,1>       
+    <BELL,LA1,Horn1,1>
+    <BELL,Piha1,Ring,1>
+    <BELL,Ranta1,Beep1,5>
+    <BELL,Glock1,G01,3>
+    
+      
+    
+*******************************************************************************
 
     module_tag  and sender tag identifies the type of module
       R Radio

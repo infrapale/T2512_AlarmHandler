@@ -3,6 +3,15 @@
 #define FIELD_LEN   8
 #define NBR_OF_NODES  4
 
+typedef enum 
+{   
+    EVENT_PIHA1 = 0,
+    EVENT_PIHA2,
+    EVENT_RANTA1,
+    EVENT_RANTA2,
+    EVENT_NBR_OF
+} event_indx_et;
+
 typedef enum
 {
     NODE_TYPE_UNDEF = 0,
