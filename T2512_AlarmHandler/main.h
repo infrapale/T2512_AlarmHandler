@@ -4,6 +4,8 @@
 #define   __APP__ ((char*)"T2512_AlarmHandler")
 
 #define DEBUG_PRINT 
+//#define SIMULATE_PIR_ALARMS
+
 //#define SEND_TEST_MSG 
 //#define ADA_M0_RFM69 
 #define ADA_PICO_FEATHER

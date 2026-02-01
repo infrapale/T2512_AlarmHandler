@@ -29,5 +29,6 @@ bool handler_parse_msg(char *msg, int16_t rssi );
 //void handler_process_event(event_radio_msg_st ev):
 
 void handler_debug_print(void);
+void handler_short_debug_print(void);
 
 #endif

@@ -44,10 +44,10 @@ typedef struct
 
 event_st event[EVENT_NBR_OF] = 
 {
-   [EVENT_PIHA1]    = {{"PIR","Piha1","xx",0},  3,0,0,0,0,0,0,10000,0},
-   [EVENT_PIHA2]    = {{"PIR","Piha2","xx",0},  5,0,0,0,0,0,0,10000,0},
-   [EVENT_RANTA1]   = {{"PIR","Ranta1","xx",0}, 6,0,0,0,0,0,0,10000,0},
-   [EVENT_RANTA2]   = {{"PIR","Ranta2","xx",0}, 1,0,0,0,0,0,0,10000,0},
+   [EVENT_PIHA1]    = {{"PIR","Piha1","xx",0},  3,0,0,0,0,0,0,0,0},
+   [EVENT_PIHA2]    = {{"PIR","Piha2","xx",0},  5,0,0,0,0,0,0,0,0},
+   [EVENT_RANTA1]   = {{"PIR","Ranta1","xx",0}, 6,0,0,0,0,0,0,0,0},
+   [EVENT_RANTA2]   = {{"PIR","Ranta2","xx",0}, 1,0,0,0,0,0,0,0,0},
 };
 
 
@@ -142,7 +142,13 @@ bool handler_parse_msg(char *msg, int16_t rssi )
     }
     if (do_continue) {
         Sub = Msg.substring(indx1,indx2);
+        #ifndef SIMULATE_PIR_ALARMS
         Sub.toCharArray(rec_event.value, MSG_VALUE_LEN );
+        #else
+        if((millis() & 0b00000011) == 0) rec_event.value[0]='0';
+        else rec_event.value[0] = '1';
+        rec_event.value[1] = 0x00;
+        #endif
     }
 
     if (do_continue) {
@@ -201,6 +207,18 @@ void handler_debug_print(void)
         if (event[indx].alarm_timeout > millis()) Serial.println("=on ");   
         else Serial.println("=off ");      
     }
+}
+
+void handler_short_debug_print(void)
+{
+    Serial.println("Alarms: ");
+    for(uint8_t indx = 0; indx < NBR_OF_NODES; indx++)
+    {
+        Serial.printf("%s: ", event[indx].msg.label);
+        if (event[indx].alarm_timeout > millis()) Serial.print("=on ");   
+        else Serial.print("=off ");      
+    }
+    Serial.println();
 }
 
 void handler_task(void)

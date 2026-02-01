@@ -128,7 +128,7 @@ void loop()
         // rfm69_modem.get_msg(mbuff, BUFF_LEN, false);
         rfm69_modem.get_msg(mbuff, BUFF_LEN, true);    //.get_msg_decode(mbuff, BUFF_LEN, true);
         rssi = rfm69_modem.get_last_rssi();
-        Serial.print(mbuff); Serial.print(" RSSI: "); Serial.println(rssi);
+        Serial.print("RFM69< "); Serial.println(mbuff); //Serial.print(" RSSI: "); Serial.println(rssi);
         if (handler_parse_msg(mbuff,rssi))
         {
             // handler_process_event();
@@ -152,8 +152,9 @@ void run_100ms(void)
 
 void debug_print_task(void)
 {
-  atask_print_status(true);
-  handler_debug_print();
+  //atask_print_status(true);
+  //handler_debug_print();
+  handler_short_debug_print();
   alarm_debug_print();
 }
 

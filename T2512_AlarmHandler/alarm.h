@@ -40,7 +40,7 @@ typedef enum
 
 typedef enum
 {
-    SOUND_NO   = 0,
+    SOUND_0   = 0,   // No sound
     SOUND_1,
     SOUND_2,
     SOUND_3,

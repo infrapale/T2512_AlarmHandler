@@ -24,7 +24,7 @@ typedef struct
 // ALARM_BM_ALL || ALARM_BM_VA1 || ALARM_BM_LA1 || ALARM_BM_PIHA1 || ALARM_BM_RANTA1 || ALARM_BM_GLOCK1
 // SOUND_DEFAULT SOUND_BEEP1 SOUND_RING1 SOUND_RING2 SOUND_BIGBEN SOUND_HORN1 SOUND_GLOCK1, SOUND_GLOCK2
 
-severity_home_st event_action[HOME_STATE_NBR_OF] =
+event_action_st event_action[HOME_STATE_NBR_OF] =
 {
     [HOME_STATE_AWAY] = 
     {  // EVENT ->    PIHA1    PIHA2   RANTA1   RANTA2  
@@ -111,9 +111,9 @@ void alarm_debug_print(void)
 void alarm_send(uint8_t alarm_unit_indx, uint8_t sound_indx, uint8_t repeat_nbr)
 {
     char msg[40];
-    sprintf(msg,"<BELL;%s;%s;%d>",
+    sprintf(msg,"<BELL;%s;%d;%d>",
         alarm_module_tag[alarm_unit_indx],
-        sound_tag[sound_indx],
+        sound_indx,
         repeat_nbr
     );
 
